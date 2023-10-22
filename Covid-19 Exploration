@@ -1,11 +1,12 @@
- -- 1)Finding the total death count in Morocco
+ -- 1)Trouver le nombre total de décès au Maroc.
 
 SELECT SUM(new_cases) as total_cases, SUM(cast(new_deaths as int)) as total_deaths, SUM(cast(new_deaths as int))/SUM(New_Cases)*100 as DeathPercentage
 FROM Portfolio..CovidDeaths$
 WHERE location like '%morocco%'
 ORDER by 1,2
 
- -- 2)Finding the highest death count by continent
+ -- 2)Trouver le nombre le plus élevé de décès par continent.
+
 SELECT location, SUM(cast(new_deaths as int)) as TotalDeathCount
 FROM Portfolio..CovidDeaths$
 WHERE continent is null 
@@ -13,14 +14,16 @@ AND location not in ('World', 'European Union', 'International')
 GROUP by location
 ORDER by TotalDeathCount desc
 
- -- 3)Finding the percentage of people infected in Morocco
+ -- 3)Trouver le pourcentage de personnes infectées au Maroc
+
 SELECT Location, Population, MAX(total_cases) as HighestInfectionCount,  Max((total_cases/population))*100 as PercentPopulationInfected
 FROM Portfolio..CovidDeaths$
 WHERE location like '%morocco%'
 GROUP BY Location, Population
 ORDER BY PercentPopulationInfected DESC
 
- -- 4)Finding the percentage of people infected by continent and location
+ -- 4)Trouver le pourcentage de personnes infectées par continent et pays.
+
 SELECT Location, Population,date, MAX(total_cases) as HighestInfectionCount,  Max((total_cases/population))*100 as PercentPopulationInfected
 FROM Portfolio..CovidDeaths$
 GROUP BY Location, Population, date
