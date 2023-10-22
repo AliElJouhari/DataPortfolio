@@ -1,0 +1,12 @@
+L'objectif de cette exploration est de savoir si le niveau scolaire à gardé son importance dans la recherche d'emploi à travers le temps.
+
+ --1) Trouver la moyenne de taux de chômage par niveau scolaire
+
+SELECT EXTRACT(YEAR FROM date) AS Year,
+ ROUND(AVG(high_school),2) AS High_School,
+ ROUND(AVG(some_college),2) AS College,
+ ROUND(AVG(bachelor_s_degree),2) AS Bachelors,
+ ROUND(AVG(advanced_degree),2) AS Advanced
+FROM `Unemployement_Data.Unemployement`
+GROUP BY Year
+
